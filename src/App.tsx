@@ -1,8 +1,12 @@
+import Child from "./Child";
+
 function App() {
   console.log("Render App");
+
   return (
     <>
-      <div>Hello World</div>
+      <div>Here is App Component.</div>
+      <Child />
     </>
   );
 }
