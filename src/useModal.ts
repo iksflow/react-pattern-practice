@@ -1,20 +1,20 @@
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import modalState from "./modalState";
 import type { Modal } from "./modalState";
 
 const useModal = () => {
-  // console.log("Render useModal");
-  const [modals, setModals] = useRecoilState(modalState);
+  const setModals = useSetRecoilState(modalState);
   const open = (modal: Modal) => {
-    const isModalAlreadyOpened = modals.some(
-      (openedModal) => openedModal.Component === modal.Component
-    );
-    if (isModalAlreadyOpened) {
-      console.log("Already Opened!");
-      return;
-    }
-
-    setModals((prev) => [...prev, modal]);
+    setModals((prev) => {
+      const isModalAlreadyOpened = prev.some(
+        (openedModal) => openedModal.Component === modal.Component
+      );
+      if (isModalAlreadyOpened) {
+        console.log("Already Opened!");
+        return prev;
+      }
+      return [...prev, modal];
+    });
   };
 
   const close = (modal: Modal) => {

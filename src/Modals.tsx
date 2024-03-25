@@ -1,9 +1,11 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import modalState from "./modalState";
 
 const Modals = () => {
   console.log("Render Modals");
-  const [modals] = useRecoilState(modalState);
+
+  const modals = useRecoilValue(modalState);
+
   return (
     <>
       {modals.map((modal, index) => {
