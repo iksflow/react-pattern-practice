@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Todo } from '@/types/todo';
 
-const Todo = () => {
+const TodoWithAxios = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
   //  2. fetch todos using axios
@@ -25,4 +25,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default TodoWithAxios;

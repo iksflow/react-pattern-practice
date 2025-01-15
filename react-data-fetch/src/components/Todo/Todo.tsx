@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Todo } from '@/types/todo';
+import { Todo as TodoType } from '@/types/todo';
 
 const Todo = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>([]);
 
   //  1. fetch todos using fetch api
   //   useEffect(() => {
