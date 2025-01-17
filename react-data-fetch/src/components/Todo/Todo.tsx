@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Todo as TodoType } from '@/types/todo';
+import { AppServerClient } from '@/utils/AppServerClient';
 
+const appServerClient = AppServerClient.getInstance();
 const Todo = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
+
+  useEffect(() => {
+    appServerClient.getTodos().then((todos) => setTodos(todos));
+  }, []);
 
   //  1. fetch todos using fetch api
   //   useEffect(() => {
