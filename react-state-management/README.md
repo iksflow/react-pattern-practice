@@ -1,4 +1,11 @@
-# React Base Template
+# Redux 설치하기
+
+```bash
+pnpm add redux react-redux @reduxjs/toolkit
+pnpm add -D redux-devtools
+```
+
+# React Base Template 설치 방법
 
 기본 템플릿의 스택
 
