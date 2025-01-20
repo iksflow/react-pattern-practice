@@ -8,7 +8,10 @@ const Todo = () => {
   const [todos, setTodos] = useState<TodoType[]>([]);
 
   useEffect(() => {
-    appServerClient.getTodos().then((todos) => setTodos(todos));
+    appServerClient
+      .get('/todos')
+      .then((response) => response.json())
+      .then((todos) => setTodos(todos));
   }, []);
 
   //  1. fetch todos using fetch api

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Todo } from '@/types/todo';
+import { AppServerClient } from '@/utils/AppServerClient';
 
+const appServerClient = AppServerClient.getInstance();
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -9,9 +11,7 @@ export const useTodos = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch(
-          'https://jsonplaceholder.typicode.com/todos',
-        );
+        const response = await appServerClient.get('/todos');
         const data = await response.json();
         setTodos(data);
       } catch (err) {
