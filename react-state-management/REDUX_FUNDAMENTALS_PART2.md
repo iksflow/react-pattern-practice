@@ -262,3 +262,47 @@ const finalResult = actions.reduce(counterReducer, initialState);
 console.log(finalResult);
 // {value: 3}
 ```
+
+### Store
+
+현재 Redux 애플리케이션의 상태는 스토어라고 불리는 객체에 저장됩니다.  
+스토어는 리듀서를 전달하여 생성되며, 현재 상태 값을 반환하는 getState라는 메서드를 가지고 있습니다:
+
+```js
+import { configureStore } from '@reduxjs/toolkit';
+
+const store = configureStore({ reducer: counterReducer });
+
+console.log(store.getState());
+// {value: 0}
+```
+
+### Dispatch
+
+Redux 스토어는 dispatch라는 메서드를 가지고 있습니다.  
+상태를 업데이트하는 유일한 방법은 store.dispatch()를 호출하고 액션 객체를 전달하는 것입니다.  
+스토어는 리듀서 함수를 실행하고 새로운 상태 값을 내부에 저장하며, getState()를 호출하여 업데이트된 값을 가져올 수 있습니다:
+
+```js
+store.dispatch({ type: 'counter/incremented' });
+
+console.log(store.getState());
+// {value: 1}
+```
+
+액션을 디스패치하는 것은 애플리케이션에서 "이벤트를 트리거하는 것"으로 생각할 수 있습니다.  
+무언가가 발생했고, 우리는 스토어가 이를 알기를 원합니다.  
+리듀서는 이벤트 리스너처럼 동작하며, 관심 있는 액션을 감지하면 그에 대한 응답으로 상태를 업데이트합니다.
+
+### Selectors
+
+셀렉터는 스토어의 상태 값에서 특정 정보를 추출하는 방법을 알고 있는 함수입니다.  
+애플리케이션이 커질수록, 앱의 여러 부분에서 동일한 데이터를 읽어야 할 때 반복되는 로직을 피하는 데 도움이 됩니다:
+
+```js
+const selectCounterValue = (state) => state.value;
+
+const currentValue = selectCounterValue(store.getState());
+console.log(currentValue);
+// 2
+```
