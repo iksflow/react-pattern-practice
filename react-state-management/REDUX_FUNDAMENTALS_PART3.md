@@ -1,2 +1,1 @@
-# Redux Fundamentals > Part 2. Concepts and Data Flow
-
+# Redux Fundamentals > Part 3. State, Actions, and Reducers
