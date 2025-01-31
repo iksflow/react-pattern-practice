@@ -1,4 +1,4 @@
-import { createStore } from 'redux/src';
+import { createStore } from 'redux';
 import rootReducer from './reducer';
 
 let preloadedState;
