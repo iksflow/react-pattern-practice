@@ -68,3 +68,12 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+# combineReducers
+- slice로 분리한 reducer를 합쳐서 rootReducer를 만들어주는 함수.
+
+
+# createStore
+- rootReducer와 middleware를 받아 store를 만들어주는 함수.
+- preloadedState를 받아 초기 state를 설정할 수 있다.
