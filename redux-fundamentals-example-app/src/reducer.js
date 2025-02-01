@@ -1,5 +1,5 @@
-import todosReducer from './features/todos/todoSlice';
-import filtersReducer from './features/filters/filterSlice';
+import todosReducer from './features/todos/todosSlice';
+import filtersReducer from './features/filters/filtersSlice';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({

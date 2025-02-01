@@ -249,3 +249,9 @@ redux-devtools-extension패키지는 deprecated 되었다.
 ```sh
 npm install @redux-devtools/extension
 ```
+
+# React-Redux 설치
+버전을 명시하여 설치한다.
+```sh
+npm install react-redux@8.1.3
+```
