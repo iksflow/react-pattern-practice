@@ -1,12 +1,10 @@
-import { compose, createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducer';
-import {
-  includeMeaningOfLife,
-  sayHiOnDispatch,
-} from './exampleAddons/enhancers';
+import { print1, print2, print3 } from './exampleAddons/middleware';
 
-const composedEnhancer = compose(sayHiOnDispatch, includeMeaningOfLife);
-const store = createStore(rootReducer, undefined, composedEnhancer);
-// const store = createStore(rootReducer, undefined, sayHiOnDispatch);
+const middlewareEnhancer = applyMiddleware(print1, print2, print3);
+
+// Pass enhancer as the second arg, since there's no preloadedState
+const store = createStore(rootReducer, middlewareEnhancer);
 
 export default store;
