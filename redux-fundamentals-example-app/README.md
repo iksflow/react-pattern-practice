@@ -240,3 +240,12 @@ const delayedMessageMiddleware = storeAPI => next => action => {
 - 비동기 API 호출하기
 - 액션 수정하기
 - 액션을 일시 중지하거나 완전히 중지하기
+
+# Redux Devtools Extension
+
+설치는 아래 명령어로.
+참고 - `npm install redux-devtools-extension`을 실행하면 에러가 발생한다.  
+redux-devtools-extension패키지는 deprecated 되었다.
+```sh
+npm install @redux-devtools/extension
+```
