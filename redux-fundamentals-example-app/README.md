@@ -77,3 +77,39 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 # createStore
 - rootReducer와 middleware를 받아 store를 만들어주는 함수.
 - preloadedState를 받아 초기 state를 설정할 수 있다.
+
+# store enhancer
+- store 생성 함수를 확장하는 함수.
+- original store를 한층 더 감싸서 store를 확장한다. 
+- enhancer는 dispatch, getState, subscribe를 override할 수 있다.
+- enhancer는 아래와 같은 형태로 사용한다.
+```js
+export const sayHiOnDispatch = (createStore) => {
+  return (rootReducer, preloadedState, enhancers) => {
+    const store = createStore(rootReducer, preloadedState, enhancers)
+
+    function newDispatch(action) {
+      const result = store.dispatch(action)
+      console.log('Hi!')
+      return result
+    }
+
+    return { ...store, dispatch: newDispatch }
+  }
+}
+
+```
+- 이렇게 만든 enhancer를 createStore에 넣어준다.
+```js
+const store = createStore(rootReducer, undefined, sayHiOnDispatch)
+```
+
+- 여러개의 enhancer를 사용하려면 compose를 사용한다.
+```js
+const composedEnhancer = compose(sayHiOnDispatch, includeMeaningOfLife);
+const store = createStore(rootReducer, undefined, composedEnhancer);
+```
+
+# middleware
+- middleware는 dispatch한 Action이 store에 도달해서 Reducer가 동작하기 전에 실행되는 함수이다.
+- enhancer와 다르게 dispatch의 커스터마이즈에만 집중한다.
