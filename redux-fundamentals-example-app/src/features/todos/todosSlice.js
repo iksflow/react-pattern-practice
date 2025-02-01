@@ -39,3 +39,5 @@ export default function todosReducer(state = initialState, action) {
       return state;
   }
 }
+
+export const selectTodos = (state) => state.todos;
