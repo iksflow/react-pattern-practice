@@ -317,3 +317,34 @@ React 외부에서는 store.dispatch(action)을 호출할 수 있다는 것을 �
 컴포넌트 파일에서는 스토어에 접근할 수 없기 때문에, 컴포넌트 내부에서 디스패치 함수를 얻을 수 있는 방법이 필요합니다.
 React-Redux useDispatch 훅은 스토어의 디스패치 메서드를 결과로 제공합니다. (사실, 이 훅의 구현은 return store.dispatch와 같습니다.)
 따라서, 액션을 디스패치해야 하는 모든 컴포넌트에서 const dispatch = useDispatch()를 호출하고, 필요한 경우 dispatch(someAction)을 호출할 수 있습니다.
+
+## Passing the Store with Provider
+Our components can now read state from the store, and dispatch actions to the store.  
+However, we're still missing something.  
+Where and how are the React-Redux hooks finding the right Redux store?  
+A hook is a JS function, so it can't automatically import a store from store.js by itself.
+Instead, we have to specifically tell React-Redux what store we want to use in our components.  
+We do this by rendering a <Provider> component around our entire <App>, and passing the Redux store as a prop to <Provider>.  
+After we do this once, every component in the application will be able to access the Redux store if it needs to.
+
+Let's add that to our main index.js file:
+```js
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
+
+import App from './App'
+import store from './store'
+
+const root = createRoot(document.getElementById('root'))
+
+root.render(
+  // Render a `<Provider>` around the entire `<App>`,
+  // and pass the Redux store to it as a prop
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+)
+```
