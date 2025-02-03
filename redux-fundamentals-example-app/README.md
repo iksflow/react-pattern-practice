@@ -350,3 +350,19 @@ root.render(
 ```
 
 # 컴포넌트에서 여러개의 셀렉터 사용하기
+권장하는 방법이다.
+
+# shallowEqual
+react-redux에서 제공하는 함수로, 두 객체를 얕게 비교한다.  
+객체의 모든 속성을 비교하지 않고, 참조만 비교한다.  
+useSelector에서 두 객체를 비교할 때 사용한다.  두 객체가 동일한 경우 rerendering을 하지 않는다.
+
+# Redux Thunk
+Redux Thunk는 Redux의 미들웨어로, 액션 생성자가 함수를 반환할 수 있게 해줍니다.  
+dispatch에 함수를 전달하면, 그 함수는 Redux Thunk 미들웨어에 의해 호출되고, dispatch와 getState를 인수로 받습니다.  
+
+## 1. 설치
+```shell
+npm install react-redux
+```
+
