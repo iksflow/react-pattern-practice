@@ -348,3 +348,5 @@ root.render(
   </React.StrictMode>
 )
 ```
+
+# 컴포넌트에서 여러개의 셀렉터 사용하기

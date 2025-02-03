@@ -40,4 +40,7 @@ export default function todosReducer(state = initialState, action) {
   }
 }
 
+export const selectTodoById = (state, todoId) =>
+  state.todos.find((todo) => todo.id === todoId);
 export const selectTodos = (state) => state.todos;
+export const selectTodoIds = (state) => state.todos.map((todo) => todo.id);
