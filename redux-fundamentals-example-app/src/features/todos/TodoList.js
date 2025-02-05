@@ -5,7 +5,6 @@ import { useSelector, shallowEqual } from 'react-redux';
 
 const TodoList = () => {
   const todoIds = useSelector(selectTodoIds, shallowEqual);
-
   const renderedListItems = todoIds.map((todoId) => {
     return <TodoListItem key={todoId} id={todoId} />;
   });

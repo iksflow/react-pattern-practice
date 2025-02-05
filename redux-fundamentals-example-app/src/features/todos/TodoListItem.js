@@ -19,9 +19,9 @@ const TodoListItem = ({ id }) => {
   //   onCompletedChange(e.target.checked);
   // };
   //
-  // const handleColorChanged = (e) => {
-  //   onColorChange(e.target.value);
-  // };
+  const handleColorChanged = (e) => {
+    // onColorChange(e.target.value);
+  };
 
   const colorOptions = availableColors.map((c) => (
     <option key={c} value={c}>
@@ -46,7 +46,7 @@ const TodoListItem = ({ id }) => {
             className="colorPicker"
             value={color}
             style={{ color }}
-            // onChange={handleColorChanged}
+            onChange={handleColorChanged}
           >
             <option value=""></option>
             {colorOptions}
