@@ -1,7 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { availableColors, capitalize } from '../filters/colors';
-import { StatusFilters } from '../filters/filtersSlice';
+import {
+  StatusFilters,
+  colorFilterChanged,
+  statusFilterChanged,
+} from '../filters/filtersSlice';
 
 const RemainingTodos = ({ count }) => {
   const suffix = count === 1 ? '' : 's';
@@ -79,12 +83,12 @@ const selectRemainingTodos = (state) => {
 
 const Footer = () => {
   const todosRemaining = useSelector(selectRemainingTodos);
+  const dispatch = useDispatch();
   const { status, colors } = useSelector((state) => state.filters);
 
+  const onStatusChange = (status) => dispatch(statusFilterChanged(status));
   const onColorChange = (color, changeType) =>
-    console.log('Color change: ', { color, changeType });
-  const onStatusChange = (status) => console.log('Status change: ', status);
-
+    dispatch(colorFilterChanged(color, changeType));
   return (
     <footer className="footer">
       <div className="actions">
