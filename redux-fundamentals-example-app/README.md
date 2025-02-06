@@ -410,3 +410,30 @@ state.todos 배열이 변경될 때마다, 우리는 결과로 새로운 todo ID
 여기에는 완료된 필드를 토글하는 것과 같은 todo 항목에 대한 불변 업데이트가 포함됩니다.  
 왜냐하면 불변 업데이트를 위해 새로운 배열을 생성해야 하기 때문입니다.  
 
+
+createSelector는 입력 셀렉터로 사용할 함수를 인수로 받습니다.  
+```js
+export const selectFilteredTodos = createSelector(
+  // First input selector: all todos
+  selectTodos,
+  // Second input selector: all filter values
+  state => state.filters,
+  // Output selector: receives both values
+  (todos, filters) => {
+    const { status, colors } = filters
+    const showAllCompletions = status === StatusFilters.All
+    if (showAllCompletions && colors.length === 0) {
+      return todos
+    }
+
+    const completedStatus = status === StatusFilters.Completed
+    // Return either active or completed todos based on filter
+    return todos.filter(todo => {
+      const statusMatches =
+        showAllCompletions || todo.completed === completedStatus
+      const colorMatches = colors.length === 0 || colors.includes(todo.color)
+      return statusMatches && colorMatches
+    })
+  }
+)
+```
