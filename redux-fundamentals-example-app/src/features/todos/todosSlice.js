@@ -2,7 +2,10 @@ import { client } from '../../api/client';
 import { createSelector } from 'reselect';
 import { StatusFilters } from '../filters/filtersSlice';
 
-const initialState = [];
+const initialState = {
+  status: 'idle',
+  entities: [],
+};
 
 function nextTodoId(todos) {
   const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
@@ -12,25 +15,38 @@ function nextTodoId(todos) {
 export default function todosReducer(state = initialState, action) {
   switch (action.type) {
     case 'todos/todoAdded': {
-      return [...state, action.payload];
+      return {
+        ...state,
+        entities: [...state.entities, action.payload],
+      };
     }
     case 'todos/todoToggled': {
-      return state.map((todo) => {
-        // If this isn't the todo item we're looking for, leave it alone
-        if (todo.id !== action.payload) {
-          return todo;
-        }
+      return {
+        ...state,
+        entities: state.entities.map((todo) => {
+          if (todo.id !== action.payload) {
+            return todo;
+          }
 
-        // We've found the todo that has to change. Return a copy:
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      });
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }),
+      };
+    }
+    case 'todos/todosLoading': {
+      return {
+        ...state,
+        status: 'loading',
+      };
     }
     case 'todos/todosLoaded': {
-      // Replace the existing state entirely by returning the new value
-      return action.payload;
+      return {
+        ...state,
+        status: 'idle',
+        entities: action.payload,
+      };
     }
     default:
       return state;
@@ -40,6 +56,7 @@ export default function todosReducer(state = initialState, action) {
 // Thunk function
 export function fetchTodos() {
   return async (dispatch, getState) => {
+    dispatch(todosLoading());
     const response = await client.get('/fakeApi/todos');
     dispatch(todosLoaded(response.todos));
   };
@@ -54,10 +71,10 @@ export function saveNewTodo(text) {
   };
 }
 
-const selectTodos = (state) => state.todos;
+const selectTodos = (state) => state.todos.entities;
 
 export const selectTodoById = (state, todoId) =>
-  state.todos.find((todo) => todo.id === todoId);
+  state.todos.entities.find((todo) => todo.id === todoId);
 
 export const selectTodoIds = createSelector(
   // First, pass one or more "input selector" functions:
@@ -109,5 +126,11 @@ export const todosLoaded = (todos) => {
   return {
     type: 'todos/todosLoaded',
     payload: todos,
+  };
+};
+
+export const todosLoading = () => {
+  return {
+    type: 'todos/todosLoading',
   };
 };

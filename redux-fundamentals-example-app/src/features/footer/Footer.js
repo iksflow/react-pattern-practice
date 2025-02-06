@@ -77,7 +77,10 @@ const ColorFilters = ({ value: colors, onChange }) => {
 };
 
 const selectRemainingTodos = (state) => {
-  const uncompletedTodos = state.todos.filter((todo) => !todo.completed);
+  console.log('state::', state);
+  const uncompletedTodos = state.todos.entities.filter(
+    (todo) => !todo.completed
+  );
   return uncompletedTodos.length;
 };
 
