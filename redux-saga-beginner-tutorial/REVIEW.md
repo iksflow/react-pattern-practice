@@ -87,7 +87,42 @@ sagaMiddleware.run(mySaga)
 시작 튜토리얼에서는 Redux 저장소의 간단한 Counter 데모를 사용할 것입니다.    
 이 애플리케이션은 매우 기본적이지만, redux-saga의 기본 개념을 과도한 세부 사항 없이 설명하기에 적합합니다.  
 
-# 
+# Hello Sagas!
+우리는 우리의 첫 번째 Saga를 만들 것입니다.  
+전통을 따라, Sagas의 'Hello, world' 버전을 작성할 것입니다.  
 
+`sagas.js` 파일을 생성한 후 다음 코드를 추가합니다:   
 
+```javascript
+export function* helloSaga() {
+  console.log('Hello Sagas!')
+}
+```
+그래서 무서운 것은 없고, 단지 일반 함수입니다(\*를 제외하고).  
+이 함수는 콘솔에 인사말 메시지를 출력하는 것뿐입니다.  
 
+우리의 Saga를 실행하려면 다음이 필요합니다:
+Saga를 실행할 목록과 함께 Saga 미들웨어를 생성합니다(현재는 helloSaga 하나만 있습니다).  
+- Saga 미들웨어를 Redux 스토어에 연결합니다.  
+- main.js에 다음과 같은 변경을 할 것입니다:
+
+```javascript
+// main.js
+// ...
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+
+// ...
+import { helloSaga } from './sagas'
+
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+)
+sagaMiddleware.run(helloSaga)
+
+const action = type => store.dispatch({type})
+
+// rest unchanged
+```
